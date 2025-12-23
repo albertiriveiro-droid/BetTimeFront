@@ -20,15 +20,28 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <h1>Equipos</h1>
-      <ul>
-        {teams.map((team) => (
-          <li key={team.id}>{team.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
+  <div>
+    <h1>Equipos</h1>
+    <ul>
+      {teams.map((team) => (
+        <li key={team.id}>
+          <strong>{team.name}</strong>
+          {team.players && team.players.length > 0 ? (
+            <ul>
+              {team.players.map((player) => (
+                <li key={player.id}>
+                  {player.name} - {player.position}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No hay jugadores en este equipo</p>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 }
 
 export default App;
