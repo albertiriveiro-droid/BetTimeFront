@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;           
+  padding: 0.5rem 1rem;
+  background-color: #1a1a1a;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.header-left img.logo {
+  height: 50px; 
+  width: auto;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; 
+}
+
+.header-right .btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.header-right .btn-primary {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.header-right .balance {
+  margin-right: 1rem;
+  font-weight: bold;
+}
