@@ -1,0 +1,15 @@
+.account-page {
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.account-section {
+  background: #1a1a1a;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.account-section h2 {
+  margin-bottom: 10px;
+}
