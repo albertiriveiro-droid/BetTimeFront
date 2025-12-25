@@ -1,21 +1,20 @@
 import { http } from "../api/http";
-import type { Match, MatchCreateDTO, MatchUpdateDTO } from "../types/match";
+import type { Match, MatchCreateDTO, MatchUpdateDTO, MatchOutputDTO } from "../types/match";
 
 export const matchService = {
   
-  getAll(): Promise<Match[]> {
-    return http.get("/match").then(res => res.data);
-  },
-
-  getById(matchId: number): Promise<Match> {
+  getAll(): Promise<MatchOutputDTO[]> {
+  return http.get("/match").then(res => res.data);
+},
+  getById(matchId: number): Promise<MatchOutputDTO> {
     return http.get(`/match/${matchId}`).then(res => res.data);
   },
 
-  getByLeague(leagueId: number): Promise<Match[]> {
+  getByLeague(leagueId: number): Promise<MatchOutputDTO[]> {
     return http.get(`/match/byLeague/${leagueId}`).then(res => res.data);
   },
 
-  getByTeam(teamId: number): Promise<Match[]> {
+  getByTeam(teamId: number): Promise<MatchOutputDTO[]> {
     return http.get(`/match/byTeam/${teamId}`).then(res => res.data);
   },
 

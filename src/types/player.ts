@@ -1,4 +1,4 @@
-import type { PlayerMatchStats } from "./playermatchstats";
+import type { PlayerMatchStats } from "./playerMatchStats";
 import type { PlayerMarket } from "./playerMarket";
 
 export type PlayerPosition = "Goalkeeper" | "Defender" | "Midfielder" | "Forward";

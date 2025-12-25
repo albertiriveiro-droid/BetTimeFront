@@ -10,6 +10,5 @@ export interface PlayerMarketSelection {
 
 export interface PlayerMarketSelectionCreateDTO {
   name: string;
-  odd: number;
-  threshold?: number;
+  odds: number;
 }
