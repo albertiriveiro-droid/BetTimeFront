@@ -19,8 +19,11 @@ const AdminMatchMarkets = () => {
   const [playerMarkets, setPlayerMarkets] = useState<PlayerMarket[]>([]);
 
   useEffect(() => {
-    matchService.getAll().then(setMatches);
-  }, []);
+  matchService.getAll().then((allMatches) => {
+    const activeMatches = allMatches.filter(m => !m.finished);
+    setMatches(activeMatches);
+  });
+}, []);
 
   useEffect(() => {
     if (!matchId) return;
@@ -39,9 +42,10 @@ const AdminMatchMarkets = () => {
       >
         <option value="">Selecciona partido</option>
         {matches.map(m => (
-          <option key={m.id} value={m.id}>
-            {m.homeTeamName} vs {m.awayTeamName}
-          </option>
+         <option key={m.id} value={m.id}>
+        {m.homeTeamName} vs {m.awayTeamName} –{" "}
+        {new Date(m.startTime).toLocaleDateString()}
+        </option>
         ))}
       </select>
 

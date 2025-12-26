@@ -1,0 +1,117 @@
+.home-matches-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.home-league-title{
+ font-size: 25px;
+ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+ color: aquamarine;
+}
+.home-league-group {
+  margin-bottom: 24px;
+}
+
+.home-league-header {
+  font-weight: 800;
+  font-size: 1rem;
+  background: #1f2a44;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.home-match-card {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 0;
+}
+
+.home-match-date {
+  font-size: 0.75rem;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+.home-match-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-match-teams {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-team,
+.away-team {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.home-match-time {
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.home-match-odds {
+  display: flex;
+  gap: 6px;
+}
+
+.odd-btn {
+  min-width: 52px;
+  padding: 6px 0;
+  border-radius: 4px;
+  border: none;
+  background-color: #f2f2f2;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.odd-btn:hover {
+  background-color: #ddd;
+}
+
+.home-search {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.home-league-filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+
+.league-filter-btn {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background-color: #f4f4f4;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.league-filter-btn:hover {
+  background-color: #e6e6e6;
+}
+
+.league-filter-btn.active {
+  background-color: #2a7ae2;
+  color: white;
+  border-color: #2a7ae2;
+}
