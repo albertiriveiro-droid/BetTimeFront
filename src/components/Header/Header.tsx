@@ -20,6 +20,11 @@ const Header = () => {
       </div>
 
       <div className="header-right">
+
+      <Link to="/">
+      <button className="btn btn-admin">Todos los partidos</button>
+      </Link>
+              
         {!user ? (
           <>
             <button className="btn" onClick={() => setLoginOpen(true)}>
