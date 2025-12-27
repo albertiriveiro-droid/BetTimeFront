@@ -116,7 +116,7 @@
   font-size: 15px;
 }
 
-/* ===== Inputs ===== */
+
 
 .admin-market-card input {
   width: 100%;
@@ -150,7 +150,7 @@
   background: #4338ca;
 }
 
-/* ===== Feedback messages ===== */
+
 
 .admin-message {
   margin-top: 8px;
@@ -167,4 +167,65 @@
 .admin-message.error {
   background: #4c0519;
   color: #fecaca;
+}
+
+
+.admin-matchstats {
+  padding: 20px;
+}
+
+.admin-matchstats-title {
+  margin: 20px 0 10px;
+}
+
+.admin-matchstats-table,
+.admin-matchstats-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+}
+
+.admin-matchstats-table th,
+.admin-matchstats-table td,
+.admin-matchstats-stats-table th,
+.admin-matchstats-stats-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.admin-matchstats-table th{
+  color: #121212;
+}
+
+.admin-matchstats-table th,
+.admin-matchstats-stats-table th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+}
+.admin-matchstats-stats-table th{
+ color: #121212; 
+}
+.admin-matchstats-btn {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.admin-matchstats-btn:hover {
+  background-color: #1e40af;
+}
+
+.admin-matchstats-details {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 2px solid #e5e7eb;
+}
+
+.admin-matchstats-loading {
+  padding: 10px;
+  font-style: italic;
 }

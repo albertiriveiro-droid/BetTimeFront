@@ -3,9 +3,8 @@ import UsersList from "../components/Admin/UserList";
 import LeaguesList from "../components/Admin/LeaguesList";
 import TeamsList from "../components/Admin/TeamList";
 import MatchCreateForm from "../components/Admin/MatchCreateForm";
-import MatchesList from "../components/Admin/MatchesList";
 import AdminMatchMarkets from "../components/Admin/AdminMatchMarkets";
-
+import MatchStats from "../components/Admin/MatchStats";
 
 const AdminPage = () => {
   return (
@@ -31,15 +30,19 @@ const AdminPage = () => {
         <h2>Creación de partido</h2>
         <MatchCreateForm />
       </section>
-
-       <section>
-        <h2>Partidos</h2>
-        <MatchesList />
+      <section>
+      
+        <MatchStats />
       </section>
+
+  
        <section>
       
         <AdminMatchMarkets />
       </section>
+
+      
+       
        
 
        

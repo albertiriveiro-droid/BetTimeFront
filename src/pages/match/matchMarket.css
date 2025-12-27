@@ -1,0 +1,38 @@
+.match-markets-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.market-block {
+  margin-bottom: 24px;
+}
+
+.market-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.market-selections {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.selection-btn {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.selection-btn:hover {
+  background: #e0e0e0;
+}
+
+.odd {
+  font-weight: 700;
+}
