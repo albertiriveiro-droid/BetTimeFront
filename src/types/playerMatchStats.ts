@@ -16,8 +16,8 @@ export interface PlayerMatchStatsDTO {
   matchId: number;
   goals: number;
   assists: number;
-  yellowCards: number;
-  redCards: number;
+  yellowCard: number;
+  redCard: number;
   minutesPlayed: number;
 }
 
@@ -25,7 +25,7 @@ export interface PlayerMatchStatsDTO {
 export interface PlayerMatchStatsUpdateDTO {
   goals?: number;
   assists?: number;
-  yellowCards?: number;
-  redCards?: number;
+  yellowCard?: number;
+  redCard?: number;
   minutesPlayed?: number;
 }

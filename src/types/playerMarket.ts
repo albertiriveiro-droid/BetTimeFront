@@ -14,8 +14,20 @@ export interface PlayerMarket {
   selections?: PlayerMarketSelection[];
 }
 
+export interface PlayerMarketOutputDTO {
+  id: number;
+  matchId: number;
+  playerId: number;
+  playerName: string;
+  teamName: string;
+  playerMarketType: PlayerMarketType;
+  isOpen: boolean;
+  selections: PlayerMarketSelection[];
+}
+
 
 export interface PlayerMarketCreateDTO {
   playerId: number;
   playerMarketType: PlayerMarketType;
 }
+

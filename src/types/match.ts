@@ -1,7 +1,7 @@
 import type { Bet } from "./bet";
 import type { Market } from "./market";
 import type { PlayerMarket } from "./playerMarket";
-import type { PlayerMatchStats } from "./playerMatchStats";
+import type { PlayerMatchStats, PlayerMatchStatsDTO } from "./playerMatchStats";
 import type { Team } from "./team";
 
 
@@ -59,4 +59,5 @@ export interface MatchOutputDTO {
   awayCorners: number;
   durationMinutes: number;
   finished: boolean;
+  playerStats?: PlayerMatchStatsDTO[];
 }

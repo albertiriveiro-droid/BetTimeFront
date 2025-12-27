@@ -5,6 +5,8 @@ import Admin from "./pages/Admin";
 import HistoryPage from "./pages/account/HistoryPage";
 import AccountPage from "./pages/account/AccountPage"
 import { PrivateRoute } from "./components/PrivateRoute";
+import MatchMarkets from "./pages/match/MatchMarkets";
+
 
 function App() {
   return (
@@ -44,6 +46,7 @@ function App() {
     </PrivateRoute>
   }
 />
+<Route path="/match/:id" element={<MatchMarkets />} />
       </Routes>
     </>
   );

@@ -1,5 +1,5 @@
 import { http } from "../api/http";
-import type { PlayerMatchStatsDTO,PlayerMatchStatsUpdateDTO } from "../types/playermatchstats";
+import type { PlayerMatchStatsDTO,PlayerMatchStatsUpdateDTO } from "../types/playerMatchStats";
 
 export const playerMatchStatsService = {
   getByPlayerAndMatch: (playerId: number, matchId: number): Promise<PlayerMatchStatsDTO> =>
@@ -8,6 +8,7 @@ export const playerMatchStatsService = {
   getByMatch: (matchId: number): Promise<PlayerMatchStatsDTO[]> =>
     http.get(`/playermatchstats/match/${matchId}`).then(res => res.data),
 
+  
   create: (dto: PlayerMatchStatsDTO): Promise<PlayerMatchStatsDTO> =>
     http.post(`/playermatchstats`, dto).then(res => res.data),
 
