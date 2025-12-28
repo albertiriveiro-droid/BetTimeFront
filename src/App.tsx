@@ -6,6 +6,8 @@ import HistoryPage from "./pages/account/HistoryPage";
 import AccountPage from "./pages/account/AccountPage"
 import { PrivateRoute } from "./components/PrivateRoute";
 import MatchMarkets from "./pages/match/MatchMarkets";
+import BetSlipModal from "./components/Bet/BetSlipModal";
+import BetsPage from "./pages/bets/BetsPage";
 
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
     <>
       
       <Header />
+      <BetSlipModal />
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -47,9 +50,20 @@ function App() {
   }
 />
 <Route path="/match/:id" element={<MatchMarkets />} />
+
+<Route
+path="/bets"
+element={
+<PrivateRoute>
+<BetsPage />
+</PrivateRoute>
+}
+/>
       </Routes>
     </>
   );
+
+  
 }
 
 export default App;
