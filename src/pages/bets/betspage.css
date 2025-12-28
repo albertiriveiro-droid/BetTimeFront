@@ -1,0 +1,41 @@
+.bets-page-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.bets-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.bets-tabs button {
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  background: #ddd;
+  border-radius: 4px;
+}
+
+.bets-tabs button.active {
+  background: #007bff;
+  color: white;
+}
+
+.bets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.bet-card {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  background: #000;
+}
+
+.bet-card div {
+  margin: 4px 0;
+}
