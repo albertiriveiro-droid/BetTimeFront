@@ -7,6 +7,7 @@ import { betService } from "../../services/bet.service";
 import logo from "../../assets/logo.png";
 import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
+import { FiLogOut, FiUser } from "react-icons/fi";
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -37,66 +38,75 @@ const Header = () => {
     navigate("/bets");
   };
 
-  return (
+  const handleLogout = async () => {
+   await logout();
+  setLoginOpen(false);
+  setRegisterOpen(false);
+  setProfileOpen(false);
+  navigate("/");
+};
+
+
+   return (
     <header className="header">
+     
       <div className="header-left">
         <img src={logo} alt="BetTime" className="logo" />
       </div>
 
-      <div className="header-right">
-        <Link to="/">
-          <button className="btn btn-admin">Todos los partidos</button>
-        </Link>
+      
+     <nav className="header-center">
+    <button className="nav-link" onClick={() => navigate("/")}>
+    Todos los partidos
+    </button>
 
-        {!user ? (
-          <>
-            <button className="btn" onClick={() => setLoginOpen(true)}>
-              Login
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => setRegisterOpen(true)}
-            >
-              Register
-            </button>
-          </>
-        ) : (
-          <>
-            <span className="balance">💰 {user.balance}€</span>
+    {user && (
+    <button className="nav-link" onClick={handleBetsClick}>
+      Mis apuestas
+      {pendingCount > 0 && <span className="badge">{pendingCount}</span>}
+    </button>
+     )}
+  </nav>
 
-            <button className="profile-btn" onClick={() => setProfileOpen(true)}>
-              👤
-            </button>
-
-            <button className="btn" onClick={handleBetsClick}>
-              Mis apuestas {pendingCount > 0 && <span className="badge">{pendingCount}</span>}
-            </button>
-
-            {user.role === "admin" && (
-              <Link to="/admin">
-                <button className="btn btn-admin">Admin</button>
-              </Link>
-            )}
-
-            <button className="btn" onClick={logout}>
-              Logout
-            </button>
-          </>
-        )}
+      
+     <div className="header-right">
+  {!user ? (
+    <>
+      <button className="btn" onClick={() => setLoginOpen(true)}>
+        Login
+      </button>
+      <button className="btn btn-primary" onClick={() => setRegisterOpen(true)}>
+        Register
+      </button>
+    </>
+  ) : (
+    <>
+     
+      <div className="user-group">
+        <span className="balance">{user.balance}€</span>
+        <button className="icon-btn" onClick={() => setProfileOpen(true)}>
+          <FiUser />
+        </button>
       </div>
 
-      <LoginModal isOpen={isLoginOpen} onClose={() => setLoginOpen(false)} />
-      <RegisterModal
-        isOpen={isRegisterOpen}
-        onClose={() => setRegisterOpen(false)}
-      />
+      
+      <div className="admin-logout-group">
+        {user.role === "admin" && (
+          <Link to="/admin" className="btn btn-admin">
+            Admin
+          </Link>
+        )}
+        <button className="icon-btn logout" onClick={handleLogout}>
+          <FiLogOut />
+        </button>
+      </div>
+    </>
+  )}
+</div>
 
-      {user && (
-        <ProfileModal
-          isOpen={isProfileOpen}
-          onClose={() => setProfileOpen(false)}
-        />
-      )}
+      <LoginModal isOpen={isLoginOpen} onClose={() => setLoginOpen(false)} />
+      <RegisterModal isOpen={isRegisterOpen} onClose={() => setRegisterOpen(false)} />
+      {user && <ProfileModal isOpen={isProfileOpen} onClose={() => setProfileOpen(false)} />}
     </header>
   );
 };

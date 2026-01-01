@@ -1,58 +1,97 @@
-history-page {
-  max-width: 900px;
+
+.history-page {
+  max-width: 920px;
   margin: 40px auto;
   padding: 20px;
 }
 
+.history-page h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+
 .transaction-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .transaction-card {
   display: flex;
   justify-content: space-between;
-  padding: 16px;
-  border-radius: 8px;
-  background: #1e1e1e;
-  border-left: 4px solid transparent;
+  align-items: center;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #141414, #1c1c1c);
+  border-left: 5px solid transparent;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+.transaction-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+}
+
+
 .transaction-card.deposit {
-  border-left-color: #2ecc71;
+  border-left-color: #1db954;
 }
 
 .transaction-card.withdraw {
   border-left-color: #e74c3c;
 }
 
+
 .tx-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tx-type {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #ffffff;
+}
+
+.transaction-card.deposit .tx-type::before {
+  content: "➕ ";
+  color: #1db954;
+}
+
+.transaction-card.withdraw .tx-type::before {
+  content: "➖ ";
+  color: #e74c3c;
+}
+
+.tx-date {
+  font-size: 0.85rem;
+  color: #9a9a9a;
+}
+
+
+.tx-right {
+  text-align: right;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.tx-type {
-  font-weight: bold;
-}
-
-.tx-date {
-  font-size: 0.85rem;
-  opacity: 0.7;
-}
-
-.tx-right {
-  text-align: right;
-}
-
 .tx-amount {
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
 }
 
 .tx-amount.deposit {
-  color: #2ecc71;
+  color: #1db954;
 }
 
 .tx-amount.withdraw {
@@ -60,7 +99,16 @@ history-page {
 }
 
 .tx-method {
-  display: block;
-  font-size: 0.85rem;
-  opacity: 0.7;
+  font-size: 0.8rem;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+
+.history-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 1rem;
 }

@@ -1,89 +1,420 @@
-
 .modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.6); 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; 
+  z-index: 1000;
 }
 
-
-.modal {
-  background-color: #1e1e1e;
+.modal.profile-modal {
+  background: linear-gradient(145deg, #0a1e32, #122b4a);
   padding: 2rem;
-  border-radius: 12px;
-  width: 350px;
+  border-radius: 16px;
+  width: 380px;
   max-width: 90%;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.7);
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  color: #fff;
+  color: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
 }
-
 
 .modal h2 {
   margin: 0;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 25px;
+  font-weight: 700;
+  color: #fff
+}
+
+.profile-balance {
+  font-size: 18px;
+  margin-top: -10px;
+  font-weight: bold;
+  text-align: center;
+  
+  color: #1db954; 
+}
+
+.profile-email {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #b0b0b0;
+  margin-top: -20px;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.profile-actions .btn {
+  flex: 1;
+  padding: 0.6rem;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.profile-actions .btn:first-of-type {
+  background-color: #1db954;
+  color: #fff;
+}
+
+.profile-actions .btn:first-of-type:hover {
+  background-color: #1ed760;
+}
+
+.profile-actions .btn:last-of-type {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.profile-actions .btn:last-of-type:hover {
+  background-color: #ff4c3b;
+}
+
+.profile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.profile-links .btn-link {
+  background: none;
+  border: 1px solid #555;
+  color: #f5f5f5;
+  border-radius: 8px;
+  padding: 0.6rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.profile-links .btn-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #f1c40f;
+}
+
+.close-btn {
+  margin-top: 1rem;
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.6rem;
+  font-weight: 500;
+}
+
+.close-btn:hover {
+  background-color: #444;
+}
+
+.transaction-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 
-.modal input {
+.transaction-modal {
+  background: linear-gradient(145deg, #0a1e32, #122b4a);
+  padding: 2rem;
+  border-radius: 16px;
+  width: 360px;
+  max-width: 90%;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+}
+
+
+.transaction-modal h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1db954; 
+}
+
+
+.transaction-input {
   padding: 0.7rem;
-  border-radius: 8px;
-  border: 1px solid #444;
-  background-color: #2a2a2a;
-  color: #fff;
+  border-radius: 10px;
+  border: 1px solid #555;
+  background-color: #1f2a3a;
+  color: #f5f5f5;
   font-size: 1rem;
   width: 100%;
+  transition: border-color 0.2s;
 }
 
-.modal input:focus {
+.transaction-input:focus {
   outline: none;
-  border-color: #646cff;
+  border-color: #1db954;
 }
 
 
-.modal button {
-  padding: 0.7rem;
-  border-radius: 8px;
+.transaction-error {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+
+.transaction-button-confirm {
+  padding: 0.6rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-
-.modal button:first-of-type {
-  background-color: #646cff;
+  transition: all 0.2s ease;
   color: #fff;
-  margin-bottom: 0.5rem;
 }
 
-.modal button:first-of-type:hover {
-  background-color: #535bf2;
-}
-
-
-.modal button:last-of-type {
+.transaction-button-cancel {
+  padding: 0.6rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
   background-color: #333;
   color: #fff;
 }
 
-.modal button:last-of-type:hover {
+.transaction-button-cancel:hover {
   background-color: #444;
 }
 
 
-.modal .error {
-  color: #ff6b6b;
+.deposit-button {
+  background-color: #1db954;
+}
+
+.deposit-button:hover {
+  background-color: #1ed760;
+}
+
+.withdraw-button {
+  background-color: #e74c3c;
+}
+
+.withdraw-button:hover {
+  background-color: #ff4c4c;
+}
+
+.transaction-modal-h2{
+  color: #e74c3c !important;
+}
+/*Login*/
+.login-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.login-modal {
+  background: linear-gradient(145deg, #0b1f33, #132f4c);
+  padding: 2rem;
+  width: 380px;
+  max-width: 90%;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.login-error {
+  color: #e74c3c;
   font-size: 0.9rem;
   text-align: center;
+}
+
+.login-input {
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #445;
+  background-color: #1e2d3f;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-input::placeholder {
+  color: #aaa;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #1db954;
+  box-shadow: 0 0 0 1px rgba(29, 185, 84, 0.4);
+}
+
+.login-button {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #1db954;
+  color: #ffffff;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.login-button:hover {
+  background-color: #1ed760;
+  transform: translateY(-1px);
+}
+
+.login-cancel {
+  background: transparent;
+  border: 1px solid #555;
+  color: #ccc;
+  padding: 0.65rem;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-cancel:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: #888;
+}
+
+/*Register*/
+.register-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.register-modal {
+  background: linear-gradient(145deg, #0b1f33, #132f4c);
+  padding: 2rem;
+  width: 400px;
+  max-width: 92%;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.register-success {
+  color: #1db954;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.register-error {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.register-input {
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #445;
+  background-color: #1e2d3f;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.register-input::placeholder {
+  color: #aaa;
+}
+
+.register-input:focus {
+  outline: none;
+  border-color: #1db954;
+  box-shadow: 0 0 0 1px rgba(29, 185, 84, 0.4);
+}
+
+.register-button {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #1db954;
+  color: #ffffff;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.register-button:hover {
+  background-color: #1ed760;
+  transform: translateY(-1px);
+}
+
+.register-cancel {
+  background: transparent;
+  border: 1px solid #555;
+  color: #ccc;
+  padding: 0.65rem;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.register-cancel:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: #888;
 }

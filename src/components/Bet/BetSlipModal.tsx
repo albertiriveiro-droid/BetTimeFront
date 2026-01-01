@@ -15,8 +15,25 @@ const BetSlipModal = () => {
 
   const potentialWin = amount * selection.odds;
 
+  const handleClose = () => {
+    setAmount(0);
+    setMessage(null);
+    closeBetSlip();
+  };
+
   const handlePlaceBet = async () => {
-    if (!user) return;
+    if (!user) {
+      setMessage({ type: "error", text: "Debes iniciar sesión para poder apostar" });
+      return;
+    }
+    if (amount <= 0) {
+      setMessage({ type: "error", text: "Debes introducir una cantidad válida" });
+      return;
+    }
+    if (amount > user.balance) {
+      setMessage({ type: "error", text: "Saldo insuficiente" });
+      return;
+    }
 
     setLoading(true);
     setMessage(null);
@@ -29,18 +46,15 @@ const BetSlipModal = () => {
         playerMarketSelectionId: selection.type === "player" ? selection.selectionId : undefined
       });
 
-     
       await refreshUser();
 
-     
       setMessage({ type: "success", text: "¡Apuesta creada con éxito!" });
 
-     
       setAmount(0);
+
       setTimeout(() => {
-        closeBetSlip();
-        setMessage(null);
-      }, 2000); 
+        handleClose();
+      }, 2000);
     } catch (error) {
       console.error(error);
       setMessage({ type: "error", text: "Error al crear la apuesta" });
@@ -78,7 +92,7 @@ const BetSlipModal = () => {
         )}
 
         <div className="betslip-actions">
-          <button onClick={closeBetSlip}>Cancelar</button>
+          <button onClick={handleClose}>Cancelar</button>
           <button disabled={amount <= 0 || loading} onClick={handlePlaceBet}>
             Apostar
           </button>

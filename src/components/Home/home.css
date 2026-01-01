@@ -3,77 +3,110 @@
   margin: 0 auto;
   padding: 16px;
 }
-.home-league-title{
- font-size: 25px;
- font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
- color: aquamarine;
+
+.home-league-title {
+  font-size: 25px;
+  font-family: 'Trebuchet MS', sans-serif;
+  color: aquamarine;
+  margin-bottom: 12px;
 }
+
 .home-league-group {
   margin-bottom: 24px;
 }
 
-.home-league-header {
-  font-weight: 800;
-  font-size: 1rem;
-  background: #1f2a44;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-bottom: 10px;
+.home-match-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px 15px;
+  width: 650px;
+  margin-bottom: 12px;
+  background-color: #111;
+  transition: all 0.2s;
 }
 
-.home-match-card {
-  border-bottom: 1px solid #e0e0e0;
-  padding: 10px 0;
+.home-match-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+
+.home-match-main {
+  display: flex;
+  align-items: flex-start;
+}
+
+
+.home-match-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  cursor: pointer;
+  min-width: 200px;
 }
 
 .home-match-date {
-  font-size: 0.75rem;
-  color: #777;
-  margin-bottom: 6px;
-}
-
-.home-match-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.home-match-teams {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-}
-
-.home-team,
-.away-team {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
+  color: #aaa;
+}
+
+.home-team, .away-team {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
 }
 
 .home-match-time {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: #666;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
-.home-match-odds {
+
+.home-match-odds-wrapper {
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 400px;
   gap: 6px;
 }
 
-.odd-btn {
-  min-width: 52px;
-  padding: 6px 0;
-  border-radius: 4px;
-  border: none;
-  background-color: #f2f2f2;
+.odds-header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
   font-weight: 700;
-  cursor: pointer;
+  font-size: 15px;
+  color: #bbb;
+  text-align: center;
 }
 
-.odd-btn:hover {
-  background-color: #ddd;
+.home-match-odds {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  padding-top: 10px;
+  gap: 10px;
+}
+
+.home-match-odds .odd-btn {
+  padding: 10px 0;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background-color: #222;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.home-match-odds .odd-btn:hover {
+  background-color: #1db954;
+  color: #fff;
 }
 
 .home-search {
@@ -92,7 +125,6 @@
   padding-bottom: 10px;
   margin-bottom: 16px;
 }
-
 
 .league-filter-btn {
   padding: 6px 12px;
@@ -114,4 +146,10 @@
   background-color: #2a7ae2;
   color: white;
   border-color: #2a7ae2;
+}
+.home-empty {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
 }

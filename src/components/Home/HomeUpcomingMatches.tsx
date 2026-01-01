@@ -19,7 +19,7 @@ const HomeUpcomingMatches = () => {
   const [selectedLeague, setSelectedLeague] = useState<string | null>(null);
 
   const navigate = useNavigate();
-  const { openBetSlip } = useBetSlip(); 
+  const { openBetSlip } = useBetSlip();
 
   const leagues = ["LaLiga", "Premier League", "Serie A", "Bundesliga", "Ligue 1"];
 
@@ -52,13 +52,20 @@ const HomeUpcomingMatches = () => {
 
   const filteredMatches = useMemo(() => {
     let result = matches;
-    if (selectedLeague) result = result.filter((m) => m.leagueName === selectedLeague);
+
+    if (selectedLeague) {
+      result = result.filter((m) => m.leagueName === selectedLeague);
+    }
+
     if (searchTeam.trim()) {
       const term = searchTeam.toLowerCase();
       result = result.filter(
-        (m) => m.homeTeamName.toLowerCase().includes(term) || m.awayTeamName.toLowerCase().includes(term)
+        (m) =>
+          m.homeTeamName.toLowerCase().includes(term) ||
+          m.awayTeamName.toLowerCase().includes(term)
       );
     }
+
     return result;
   }, [matches, searchTeam, selectedLeague]);
 
@@ -97,8 +104,6 @@ const HomeUpcomingMatches = () => {
         </button>
       </div>
 
-      <h2>Próximos partidos</h2>
-
       {Object.entries(groupedMatches).map(([league, leagueMatches]) => (
         <div key={league} className="home-league-group">
           <div className="home-league-title">{league}</div>
@@ -113,63 +118,80 @@ const HomeUpcomingMatches = () => {
 
             return (
               <div key={m.id} className="home-match-card">
-                <div className="home-match-date">{new Date(m.startTime).toLocaleDateString()}</div>
-
-                <div className="home-match-content">
-                  <div className="home-match-teams" onClick={() => handleMatchClick(m.id)}>
+                <div className="home-match-main">
+                  <div
+                    className="home-match-info"
+                    onClick={() => handleMatchClick(m.id)}
+                  >
+                    <div className="home-match-date">
+                      {new Date(m.startTime).toLocaleDateString()}
+                    </div>
                     <div className="home-team">{m.homeTeamName}</div>
                     <div className="away-team">{m.awayTeamName}</div>
                     <div className="home-match-time">
-                      {new Date(m.startTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                      {new Date(m.startTime).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </div>
                   </div>
 
-                  <div className="home-match-odds">
-                    {homeSelection && (
-                      <button
-                        className="odd-btn"
-                        onClick={() =>
-                          openBetSlip({
-                            type: "market",
-                            selectionId: homeSelection.id,
-                            label: `${m.homeTeamName} gana`,
-                            odds: homeSelection.odd
-                          })
-                        }
-                      >
-                        {homeSelection.odd}
-                      </button>
-                    )}
-                    {drawSelection && (
-                      <button
-                        className="odd-btn"
-                        onClick={() =>
-                          openBetSlip({
-                            type: "market",
-                            selectionId: drawSelection.id,
-                            label: "Empate",
-                            odds: drawSelection.odd
-                          })
-                        }
-                      >
-                        {drawSelection.odd}
-                      </button>
-                    )}
-                    {awaySelection && (
-                      <button
-                        className="odd-btn"
-                        onClick={() =>
-                          openBetSlip({
-                            type: "market",
-                            selectionId: awaySelection.id,
-                            label: `${m.awayTeamName} gana`,
-                            odds: awaySelection.odd
-                          })
-                        }
-                      >
-                        {awaySelection.odd}
-                      </button>
-                    )}
+                  <div className="home-match-odds-wrapper">
+                    <div className="odds-header">
+                      <span>1</span>
+                      <span>X</span>
+                      <span>2</span>
+                    </div>
+
+                    <div className="home-match-odds">
+                      {homeSelection && (
+                        <button
+                          className="odd-btn"
+                          onClick={() =>
+                            openBetSlip({
+                              type: "market",
+                              selectionId: homeSelection.id,
+                              label: `${m.homeTeamName} gana`,
+                              odds: homeSelection.odd,
+                            })
+                          }
+                        >
+                          {homeSelection.odd}
+                        </button>
+                      )}
+
+                      {drawSelection && (
+                        <button
+                          className="odd-btn"
+                          onClick={() =>
+                            openBetSlip({
+                              type: "market",
+                              selectionId: drawSelection.id,
+                              label: "Empate",
+                              odds: drawSelection.odd,
+                            })
+                          }
+                        >
+                          {drawSelection.odd}
+                        </button>
+                      )}
+
+                      {awaySelection && (
+                        <button
+                          className="odd-btn"
+                          onClick={() =>
+                            openBetSlip({
+                              type: "market",
+                              selectionId: awaySelection.id,
+                              label: `${m.awayTeamName} gana`,
+                              odds: awaySelection.odd,
+                            })
+                          }
+                        >
+                          {awaySelection.odd}
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -178,7 +200,12 @@ const HomeUpcomingMatches = () => {
         </div>
       ))}
 
-      {filteredMatches.length === 0 && <div className="home-empty">No se encontraron partidos</div>}
+     
+      {filteredMatches.length === 0 && (
+        <div className="home-empty">
+          No se encontraron partidos
+        </div>
+      )}
     </div>
   );
 };

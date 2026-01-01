@@ -7,7 +7,7 @@ import type { MatchOutputDTO } from "../types/match";
 export const formatMarketType = (type: MarketType) => {
   switch (type) {
     case "OneXTwo":
-      return "1X2";
+      return "Resultado Final";
     case "OverUnderGoals":
       return "Total de goles";
     case "TotalCorners":
