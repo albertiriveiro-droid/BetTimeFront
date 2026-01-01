@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { http } from "../../api/http";           
-import { useAuth } from "../../context/AuthContext"; 
+import { http } from "../../api/http";
+import { useAuth } from "../../context/AuthContext";
 import { jwtDecode } from "jwt-decode";
 import type { UserRole } from "../../types/user";
+import { useNavigate } from "react-router-dom";
 import "./modal.css";
-
 
 interface TokenPayload {
   nameid: string;
@@ -20,12 +20,27 @@ interface LoginModalProps {
 }
 
 export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
-  const { login } = useAuth(); 
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    setEmail("");
+    setPassword("");
+    setError("");
+    onClose();
+  };
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      setError("Debes rellenar todos los campos");
+      return;
+    }
+
+    setError("");
+
     try {
       const res = await http.post("/auth/login", { email, password });
       const token = res.data.token;
@@ -41,35 +56,51 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         balance: Number(decoded.balance),
       };
 
-      login(token, user); 
-      onClose();          
+      login(token, user);
+      handleClose();
+      navigate("/");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.response?.data || "Error al iniciar sesión");
+      setError(
+        err.response?.data?.message ||
+        err.response?.data ||
+        "Email o contraseña incorrectos"
+      );
     }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal">
-        <h2>Login</h2>
-        {error && <p className="error">{error}</p>}
+    <div className="login-backdrop">
+      <div className="login-modal">
+        <h2 className="login-title">Iniciar sesión</h2>
+
+        {error && <p className="login-error">{error}</p>}
+
         <input
+          className="login-input"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+
         <input
+          className="login-input"
           type="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
-        <button onClick={onClose}>Cerrar</button>
+
+        <button className="login-button" onClick={handleLogin}>
+          Entrar
+        </button>
+
+        <button className="login-cancel" onClick={handleClose}>
+          Cancelar
+        </button>
       </div>
     </div>
   );

@@ -32,34 +32,22 @@ export const ProfileModal = ({ isOpen, onClose }: ProfileModalProps) => {
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal profile-modal" onClick={(e) => e.stopPropagation()}>
-        <h2>👤 {user.username}</h2>
+        <h2> {user.username}</h2>
 
-        <p className="profile-balance">💰 {user.balance}€</p>
+       <p className="profile-balance">{user.balance}€</p>
         <p className="profile-email">{user.email}</p>
 
         <div className="profile-actions">
-          <button className="btn" onClick={() => setShowDeposit(true)}>
-            Depositar
-          </button>
-          <button className="btn" onClick={() => setShowWithdraw(true)}>
-            Retirar
-          </button>
-        </div>
+  <button className="btn" onClick={() => setShowDeposit(true)}>Depositar</button>
+  <button className="btn" onClick={() => setShowWithdraw(true)}>Retirar</button>
+  </div>
 
-        <div className="profile-links">
-          <button className="btn-link" onClick={goToAccount}>
-            🛠️ Mi cuenta
-          </button>
-          <button className="btn-link" onClick={goToHistory}>
-            ⏰ Historial
-          </button>
-          
-        </div>
+  <div className="profile-links">
+  <button className="btn-link" onClick={goToAccount}>🛠️ Mi cuenta</button>
+  <button className="btn-link" onClick={goToHistory}>⏰ Historial</button>
+    </div>
 
-        <button className="btn close-btn" onClick={onClose}>
-          Cerrar
-        </button>
-
+    <button className="close-btn" onClick={onClose}>Cerrar</button>
         <DepositModal
           isOpen={showDeposit}
           onClose={() => setShowDeposit(false)}

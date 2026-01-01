@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { userService } from "../../services/user.service";
+import "./ProfileForms.css";
 
 const ChangePasswordForm = () => {
   const { user } = useAuth();
@@ -34,20 +35,26 @@ const ChangePasswordForm = () => {
   };
 
   return (
-    <div>
-      <label>Nueva contraseña</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+    <div className="profile-form">
+      <div className="form-group">
+        <label>Nueva contraseña</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
 
-      <button onClick={handleChange} disabled={loading}>
+      <button
+        className="primary-btn"
+        onClick={handleChange}
+        disabled={loading}
+      >
         {loading ? "Actualizando..." : "Cambiar contraseña"}
       </button>
 
-      {error && <p className="error">{error}</p>}
-      {message && <p className="success">{message}</p>}
+      {error && <p className="form-error">{error}</p>}
+      {message && <p className="form-success">{message}</p>}
     </div>
   );
 };

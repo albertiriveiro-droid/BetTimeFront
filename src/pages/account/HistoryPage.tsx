@@ -23,7 +23,7 @@ const HistoryPage = () => {
 
   return (
     <div className="history-page">
-      <h1>📜 Historial de transacciones</h1>
+      <h1> Historial de transacciones</h1>
 
       {transactions.length === 0 ? (
         <p>No hay transacciones todavía</p>

@@ -10,7 +10,7 @@ interface PrivateRouteProps {
 export const PrivateRoute = ({ children, roles }: PrivateRouteProps) => {
   const { user } = useAuth();
 
-  if (!user) return <Navigate to="/login" />;
+  if (!user) return <Navigate to="/" replace />;
   if (roles && !roles.includes(user.role)) return <Navigate to="/unauthorized" />;
   return children;
 };

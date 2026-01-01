@@ -34,19 +34,28 @@ export const DepositModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
   };
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal">
-        <h2>Depositar</h2>
-        {error && <p className="error">{error}</p>}
-        <input
-          type="number"
-          min="1"
-          value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
-        />
-        <button onClick={handleDeposit}>Confirmar</button>
-        <button onClick={onClose}>Cancelar</button>
-      </div>
-    </div>
+   <div className="transaction-modal-backdrop">
+  <div className="transaction-modal">
+    <h2>Depositar</h2>
+    {error && <p className="transaction-error">{error}</p>}
+
+    <input
+      className="transaction-input"
+      type="number"
+      min="1"
+      placeholder="Cantidad a depositar"
+      value={amount}
+      onChange={(e) => setAmount(Number(e.target.value))}
+    />
+
+    <button className="transaction-button-confirm deposit-button" onClick={handleDeposit}>
+      Confirmar
+    </button>
+    <button className="transaction-button-cancel" onClick={onClose}>
+      Cancelar
+    </button>
+  </div>
+</div>
+
   );
 };

@@ -2,8 +2,9 @@ import { useState } from "react";
 import { http } from "../../api/http";
 import type { UserCreateDTO, User } from "../../types/user";
 import { useAuth } from "../../context/AuthContext";
-import "./modal.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./modal.css";
 
 interface RegisterModalProps {
   isOpen: boolean;
@@ -16,29 +17,51 @@ export const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
 
+  const handleClose = () => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setError("");
+    setSuccess("");
+    onClose();
+  };
+
   const handleRegister = async () => {
+    if (!username || !email || !password) {
+      setError("Debes rellenar todos los campos");
+      return;
+    }
+
+    if (password.length < 5) {
+      setError("La contraseña debe tener al menos 5 caracteres");
+      return;
+    }
+
+    setError("");
+    setSuccess("");
+
     try {
-      const res = await http.post<{ token: string; user: User }>("/auth/register", {
-        username,
-        email,
-        password
-      } as UserCreateDTO);
+      const res = await http.post<{ token: string; user: User }>(
+        "/auth/register",
+        { username, email, password } as UserCreateDTO
+      );
 
-    
       login(res.data.token, res.data.user);
+      setSuccess("¡Cuenta creada correctamente!");
 
-    
-      onClose();
-
-    
       setUsername("");
       setEmail("");
       setPassword("");
-      setError("");
 
+      setTimeout(() => {
+        handleClose();
+        navigate("/");
+      }, 1500);
     } catch (err: unknown) {
       if (axios.isAxiosError(err) && err.response) {
         setError(err.response.data || "Error al registrar el usuario");
@@ -49,28 +72,42 @@ export const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
   };
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal">
-        <h2>Register</h2>
-        {error && <p className="error">{error}</p>}
+    <div className="register-backdrop">
+      <div className="register-modal">
+        <h2 className="register-title">Crear cuenta</h2>
+
+        {success && <p className="register-success">{success}</p>}
+        {error && <p className="register-error">{error}</p>}
+
         <input
-          placeholder="Username"
+          className="register-input"
+          placeholder="Usuario"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+
         <input
+          className="register-input"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+
         <input
+          className="register-input"
           type="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleRegister}>Register</button>
-        <button onClick={onClose}>Cerrar</button>
+
+        <button className="register-button" onClick={handleRegister}>
+          Registrarse
+        </button>
+
+        <button className="register-cancel" onClick={handleClose}>
+          Cancelar
+        </button>
       </div>
     </div>
   );

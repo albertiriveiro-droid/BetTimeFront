@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useRef } from "react";
 import type { ReactNode } from "react";
 import type { User } from "../types/user";
 import { userService } from "../services/user.service";
@@ -23,7 +23,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
+ 
+  const loggedOutRef = useRef(false);
+
   const login = (jwt: string, loggedUser: User) => {
+    loggedOutRef.current = false; 
     setToken(jwt);
     setUser(loggedUser);
     localStorage.setItem("token", jwt);
@@ -31,6 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
+    loggedOutRef.current = true; 
     setToken(null);
     setUser(null);
     localStorage.removeItem("token");
@@ -38,12 +43,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const refreshUser = async () => {
-    if (!user) return;
+    if (!user || loggedOutRef.current) return;
 
     try {
       const updatedUser = await userService.getById(user.id);
-      setUser(updatedUser);
-      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      if (!loggedOutRef.current) {
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      }
     } catch (error) {
       console.error("Error refreshing user", error);
     }
