@@ -1,10 +1,11 @@
-// src/pages/AdminPage.tsx
+
 import UsersList from "../components/Admin/UserList";
 import LeaguesList from "../components/Admin/LeaguesList";
 import TeamsList from "../components/Admin/TeamList";
-import MatchCreateForm from "../components/Admin/MatchCreateForm";
 import AdminMatchMarkets from "../components/Admin/AdminMatchMarkets";
 import MatchStats from "../components/Admin/MatchStats";
+import PlayersList from "../components/Admin/PlayerList";
+
 
 const AdminPage = () => {
   return (
@@ -12,24 +13,21 @@ const AdminPage = () => {
       <h1>Panel de Administración</h1>
 
       <section>
-        <h2>Usuarios</h2>
-        <UsersList />
+      <UsersList />
       </section>
 
       <section>
-        <h2>Ligas</h2>
         <LeaguesList />
       </section>
 
       <section>
-        <h2>Equipos</h2>
         <TeamsList />
       </section>
 
       <section>
-        <h2>Creación de partido</h2>
-        <MatchCreateForm />
+      <PlayersList/>
       </section>
+
       <section>
       
         <MatchStats />

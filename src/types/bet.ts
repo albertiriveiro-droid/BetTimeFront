@@ -25,6 +25,7 @@ export interface BetOutputDTO {
   selectionName?: string;
   playerName?: string;
   playerMarketType?: string;
+  threshold?: number;
   amountBet: number;
   odds: number;
   won?: boolean;

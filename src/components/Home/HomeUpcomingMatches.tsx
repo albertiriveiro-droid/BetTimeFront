@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { matchService } from "../../services/match.service";
 import { marketService } from "../../services/market.service";
+import { leagueService } from "../../services/league.service"; // 🔹 servicio para traer ligas
 import type { MatchOutputDTO } from "../../types/match";
 import { useNavigate } from "react-router-dom";
 import { useBetSlip } from "../../components/Bet/BetSlipContext";
@@ -15,36 +16,53 @@ interface OneXTwoMarket {
 const HomeUpcomingMatches = () => {
   const [matches, setMatches] = useState<MatchOutputDTO[]>([]);
   const [marketsByMatch, setMarketsByMatch] = useState<Record<number, OneXTwoMarket>>({});
+  const [leagues, setLeagues] = useState<string[]>([]);
   const [searchTeam, setSearchTeam] = useState("");
   const [selectedLeague, setSelectedLeague] = useState<string | null>(null);
+  const [loadingMatches, setLoadingMatches] = useState(true);
 
   const navigate = useNavigate();
   const { openBetSlip } = useBetSlip();
 
-  const leagues = ["LaLiga", "Premier League", "Serie A", "Bundesliga", "Ligue 1"];
+  useEffect(() => {
+  
+    const fetchLeagues = async () => {
+      try {
+        const leagueList = await leagueService.getAll(); 
+        setLeagues(leagueList.map((l) => l.name));
+      } catch (err) {
+        console.error("Error cargando ligas", err);
+      }
+    };
+
+    fetchLeagues();
+  }, []);
 
   useEffect(() => {
-    matchService.getAll().then((allMatches) => {
+    const fetchMatchesAndMarkets = async () => {
+      setLoadingMatches(true);
+      const allMatches = await matchService.getAll();
       const pending = allMatches
         .filter((m) => !m.finished)
         .sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
 
       setMatches(pending);
 
-      pending.forEach((m) => {
-        marketService.getOneXTwoByMatch(m.id).then((markets: OneXTwoMarket[]) => {
-          if (markets.length > 0) {
-            setMarketsByMatch((prev) => ({ ...prev, [m.id]: markets[0] }));
-          }
-        });
+     
+      pending.forEach(async (m) => {
+        const markets: OneXTwoMarket[] = await marketService.getOneXTwoByMatch(m.id);
+        if (markets.length > 0) {
+          setMarketsByMatch((prev) => ({ ...prev, [m.id]: markets[0] }));
+        }
       });
-    });
+
+      setLoadingMatches(false);
+    };
+
+    fetchMatchesAndMarkets();
   }, []);
 
-  const handleMatchClick = (matchId: number) => {
-    navigate(`/match/${matchId}`);
-  };
-
+  const handleMatchClick = (matchId: number) => navigate(`/match/${matchId}`);
   const resetFilters = () => {
     setSearchTeam("");
     setSelectedLeague(null);
@@ -52,20 +70,13 @@ const HomeUpcomingMatches = () => {
 
   const filteredMatches = useMemo(() => {
     let result = matches;
-
-    if (selectedLeague) {
-      result = result.filter((m) => m.leagueName === selectedLeague);
-    }
-
+    if (selectedLeague) result = result.filter((m) => m.leagueName === selectedLeague);
     if (searchTeam.trim()) {
       const term = searchTeam.toLowerCase();
       result = result.filter(
-        (m) =>
-          m.homeTeamName.toLowerCase().includes(term) ||
-          m.awayTeamName.toLowerCase().includes(term)
+        (m) => m.homeTeamName.toLowerCase().includes(term) || m.awayTeamName.toLowerCase().includes(term)
       );
     }
-
     return result;
   }, [matches, searchTeam, selectedLeague]);
 
@@ -104,107 +115,98 @@ const HomeUpcomingMatches = () => {
         </button>
       </div>
 
-      {Object.entries(groupedMatches).map(([league, leagueMatches]) => (
-        <div key={league} className="home-league-group">
-          <div className="home-league-title">{league}</div>
+      {loadingMatches ? (
+        <div className="home-empty">Cargando partidos...</div>
+      ) : (
+        Object.entries(groupedMatches).map(([league, leagueMatches]) => (
+          <div key={league} className="home-league-group">
+            <div className="home-league-title">{league}</div>
 
-          {leagueMatches.map((m) => {
-            const market = marketsByMatch[m.id];
-            if (!market) return null;
+            {leagueMatches.map((m) => {
+              const market = marketsByMatch[m.id];
+              if (!market) return null;
 
-            const homeSelection = market.selections.find((s) => s.name === "Home");
-            const drawSelection = market.selections.find((s) => s.name === "Draw");
-            const awaySelection = market.selections.find((s) => s.name === "Away");
+              const homeSelection = market.selections.find((s) => s.name === "Home");
+              const drawSelection = market.selections.find((s) => s.name === "Draw");
+              const awaySelection = market.selections.find((s) => s.name === "Away");
 
-            return (
-              <div key={m.id} className="home-match-card">
-                <div className="home-match-main">
-                  <div
-                    className="home-match-info"
-                    onClick={() => handleMatchClick(m.id)}
-                  >
-                    <div className="home-match-date">
-                      {new Date(m.startTime).toLocaleDateString()}
-                    </div>
-                    <div className="home-team">{m.homeTeamName}</div>
-                    <div className="away-team">{m.awayTeamName}</div>
-                    <div className="home-match-time">
-                      {new Date(m.startTime).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="home-match-odds-wrapper">
-                    <div className="odds-header">
-                      <span>1</span>
-                      <span>X</span>
-                      <span>2</span>
+              return (
+                <div key={m.id} className="home-match-card">
+                  <div className="home-match-main">
+                    <div className="home-match-info" onClick={() => handleMatchClick(m.id)}>
+                      <div className="home-match-date">{new Date(m.startTime).toLocaleDateString()}</div>
+                      <div className="home-team">{m.homeTeamName}</div>
+                      <div className="away-team">{m.awayTeamName}</div>
+                      <div className="home-match-time">
+                        {new Date(m.startTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                      </div>
                     </div>
 
-                    <div className="home-match-odds">
-                      {homeSelection && (
-                        <button
-                          className="odd-btn"
-                          onClick={() =>
-                            openBetSlip({
-                              type: "market",
-                              selectionId: homeSelection.id,
-                              label: `${m.homeTeamName} gana`,
-                              odds: homeSelection.odd,
-                            })
-                          }
-                        >
-                          {homeSelection.odd}
-                        </button>
-                      )}
+                    <div className="home-match-odds-wrapper">
+                      <div className="odds-header">
+                        <span>1</span>
+                        <span>X</span>
+                        <span>2</span>
+                      </div>
 
-                      {drawSelection && (
-                        <button
-                          className="odd-btn"
-                          onClick={() =>
-                            openBetSlip({
-                              type: "market",
-                              selectionId: drawSelection.id,
-                              label: "Empate",
-                              odds: drawSelection.odd,
-                            })
-                          }
-                        >
-                          {drawSelection.odd}
-                        </button>
-                      )}
-
-                      {awaySelection && (
-                        <button
-                          className="odd-btn"
-                          onClick={() =>
-                            openBetSlip({
-                              type: "market",
-                              selectionId: awaySelection.id,
-                              label: `${m.awayTeamName} gana`,
-                              odds: awaySelection.odd,
-                            })
-                          }
-                        >
-                          {awaySelection.odd}
-                        </button>
-                      )}
+                      <div className="home-match-odds">
+                        {homeSelection && (
+                          <button
+                            className="odd-btn"
+                            onClick={() =>
+                              openBetSlip({
+                                type: "market",
+                                selectionId: homeSelection.id,
+                                label: `${m.homeTeamName} gana`,
+                                odds: homeSelection.odd,
+                              })
+                            }
+                          >
+                            {homeSelection.odd}
+                          </button>
+                        )}
+                        {drawSelection && (
+                          <button
+                            className="odd-btn"
+                            onClick={() =>
+                              openBetSlip({
+                                type: "market",
+                                selectionId: drawSelection.id,
+                                label: "Empate",
+                                odds: drawSelection.odd,
+                              })
+                            }
+                          >
+                            {drawSelection.odd}
+                          </button>
+                        )}
+                        {awaySelection && (
+                          <button
+                            className="odd-btn"
+                            onClick={() =>
+                              openBetSlip({
+                                type: "market",
+                                selectionId: awaySelection.id,
+                                label: `${m.awayTeamName} gana`,
+                                odds: awaySelection.odd,
+                              })
+                            }
+                          >
+                            {awaySelection.odd}
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      ))}
+              );
+            })}
+          </div>
+        ))
+      )}
 
-     
-      {filteredMatches.length === 0 && (
-        <div className="home-empty">
-          No se encontraron partidos
-        </div>
+      {!loadingMatches && filteredMatches.length === 0 && (
+        <div className="home-empty">No se encontraron partidos</div>
       )}
     </div>
   );

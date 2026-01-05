@@ -4,6 +4,7 @@ import { playerService } from "../../services/player.service";
 import { playerMatchStatsService } from "../../services/playerMatchStats.service";
 import type { MatchOutputDTO } from "../../types/match";
 import type { PlayerMatchStatsDTO } from "../../types/playerMatchStats";
+import MatchCreateForm from "./MatchCreateForm";
 import "./admin.css";
 
 const AdminMatchStats = () => {
@@ -14,11 +15,15 @@ const AdminMatchStats = () => {
   const [playerNames, setPlayerNames] = useState<Record<number, string>>({});
   const [loadingStats, setLoadingStats] = useState(false);
 
+
+  const loadMatches = async () => {
+    const matches = await matchService.getAll();
+    setPendingMatches(matches.filter((m) => !m.finished));
+    setFinishedMatches(matches.filter((m) => m.finished));
+  };
+
   useEffect(() => {
-    matchService.getAll().then((matches) => {
-      setPendingMatches(matches.filter((m) => !m.finished));
-      setFinishedMatches(matches.filter((m) => m.finished));
-    });
+    loadMatches();
   }, []);
 
   const handleSelectMatch = async (match: MatchOutputDTO) => {
@@ -48,8 +53,10 @@ const AdminMatchStats = () => {
 
   return (
     <div className="admin-matchstats">
-      <h2 className="admin-matchstats-title">Partidos pendientes</h2>
+     
+      <MatchCreateForm onMatchCreated={loadMatches} />
 
+      <h2 className="admin-matchstats-title">Partidos pendientes</h2>
       <table className="admin-matchstats-table">
         <thead>
           <tr>
@@ -85,7 +92,6 @@ const AdminMatchStats = () => {
       </table>
 
       <h2 className="admin-matchstats-title">Partidos finalizados</h2>
-
       <table className="admin-matchstats-table">
         <thead>
           <tr>
@@ -105,7 +111,9 @@ const AdminMatchStats = () => {
               <td>{m.leagueName}</td>
               <td>{m.homeTeamName}</td>
               <td>{m.awayTeamName}</td>
-              <td>{m.homeScore} - {m.awayScore}</td>
+              <td>
+                {m.homeScore} - {m.awayScore}
+              </td>
               <td>{m.durationMinutes} min</td>
               <td>
                 <button
@@ -120,6 +128,7 @@ const AdminMatchStats = () => {
         </tbody>
       </table>
 
+      
       {selectedMatch && (
         <div className="admin-matchstats-details">
           <h2 className="admin-matchstats-title">

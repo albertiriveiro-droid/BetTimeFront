@@ -2,7 +2,11 @@ import { useState } from "react";
 import { matchService } from "../../services/match.service";
 import "./admin.css";
 
-const MatchCreateForm = () => {
+interface MatchCreateFormProps {
+  onMatchCreated?: () => void; 
+}
+
+const MatchCreateForm: React.FC<MatchCreateFormProps> = ({ onMatchCreated }) => {
   const [leagueId, setLeagueId] = useState<number | "">("");
   const [homeTeamId, setHomeTeamId] = useState<number | "">("");
   const [awayTeamId, setAwayTeamId] = useState<number | "">("");
@@ -11,9 +15,9 @@ const MatchCreateForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleCreate = async () => {
-     const isoStartTime = new Date(startTime).toISOString();
-    try {
+    const isoStartTime = new Date(startTime).toISOString();
 
+    try {
       await matchService.create({
         leagueId: Number(leagueId),
         homeTeamId: Number(homeTeamId),
@@ -23,12 +27,16 @@ const MatchCreateForm = () => {
       });
 
       setSuccessMessage("✅ Partido creado con éxito");
-     
+
+
       setLeagueId("");
       setHomeTeamId("");
       setAwayTeamId("");
       setStartTime("");
       setDurationMinutes("");
+
+      
+      onMatchCreated?.();
     } catch (err) {
       console.error(err);
       setSuccessMessage("❌ Error al crear el partido");

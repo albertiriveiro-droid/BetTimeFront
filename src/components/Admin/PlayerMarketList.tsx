@@ -25,7 +25,7 @@ const PlayerMarketsList = ({ playerMarkets }: Props) => {
     Record<number, any[]>
   >({});
 
-  // Cargar selecciones existentes al montar
+  
   useEffect(() => {
     playerMarkets.forEach(pm => {
       playerMarketSelectionService.getByPlayerMarket(pm.id).then(selections => {
@@ -36,7 +36,6 @@ const PlayerMarketsList = ({ playerMarkets }: Props) => {
       });
     });
   }, [playerMarkets]);
-
 
   const handleChange = (
     playerMarketId: number,
@@ -54,7 +53,6 @@ const PlayerMarketsList = ({ playerMarkets }: Props) => {
     }));
   };
 
- 
   const handleCreateSelection = async (playerMarketId: number) => {
     const data = formData[playerMarketId];
 
@@ -78,7 +76,6 @@ const PlayerMarketsList = ({ playerMarkets }: Props) => {
     try {
       await playerMarketSelectionService.create(playerMarketId, dto);
 
-     
       const updatedSelections =
         await playerMarketSelectionService.getByPlayerMarket(playerMarketId);
       setSelectionsByPlayerMarket(prev => ({
@@ -108,8 +105,8 @@ const PlayerMarketsList = ({ playerMarkets }: Props) => {
   };
 
   return (
-    <div>
-      <h3>Player Markets</h3>
+    <div className="admin-section">
+      <h2>Player Markets</h2>
 
       {playerMarkets.map(pm => {
         const data = formData[pm.id];
@@ -122,6 +119,7 @@ const PlayerMarketsList = ({ playerMarkets }: Props) => {
             </h4>
 
             <input
+              className="admin-form-input"
               type="text"
               placeholder="Nombre"
               value={data?.name || ""}
@@ -129,6 +127,7 @@ const PlayerMarketsList = ({ playerMarkets }: Props) => {
             />
 
             <input
+              className="admin-form-input"
               type="number"
               step="0.01"
               placeholder="Odds"
@@ -136,7 +135,10 @@ const PlayerMarketsList = ({ playerMarkets }: Props) => {
               onChange={e => handleChange(pm.id, "odds", e.target.value)}
             />
 
-            <button onClick={() => handleCreateSelection(pm.id)}>
+            <button
+              className="admin-form-button"
+              onClick={() => handleCreateSelection(pm.id)}
+            >
               ➕ Añadir selección
             </button>
 
@@ -147,7 +149,7 @@ const PlayerMarketsList = ({ playerMarkets }: Props) => {
             )}
 
             {selections.length > 0 && (
-              <table className="admin-table small">
+              <table className="admin-table">
                 <thead>
                   <tr>
                     <th>ID</th>
