@@ -22,12 +22,12 @@ export const leagueService = {
     return http.post("/league", dto).then(res => res.data);
   },
 
-  // ADMIN
+ 
   update(leagueId: number, dto: LeagueUpdateDTO): Promise<void> {
     return http.put(`/league/${leagueId}`, dto).then(res => res.data);
   },
 
-  // ADMIN
+
   delete(leagueId: number): Promise<void> {
     return http.delete(`/league/${leagueId}`).then(res => res.data);
   },
