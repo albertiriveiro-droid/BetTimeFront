@@ -169,7 +169,7 @@ const PlayersList = () => {
                       onChange={(e) =>
                         setEditForm({
                           ...editForm,
-                          shirtNumber: Number(e.target.value),
+                        shirtNumber: Number(e.target.value),
                         })
                       }
                     />
