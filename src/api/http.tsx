@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const http = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL:  "https://bettimeapi-hcaphugjhkabgack.westeurope-01.azurewebsites.net/api",
   headers: { "Content-Type": "application/json" },
 });
 
