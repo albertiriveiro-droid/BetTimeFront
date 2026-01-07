@@ -15,7 +15,7 @@ export const matchService = {
   },
 
   getByTeam(teamId: number): Promise<MatchOutputDTO[]> {
-    return http.get(`/match/byTeam/${teamId}`).then(res => res.data);
+  return http.get(`/match/byTeam/${teamId}`).then(res => res.data);
   },
 
  
