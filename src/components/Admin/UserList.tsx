@@ -64,7 +64,7 @@ const UsersList = () => {
         </tbody>
       </table>
 
-      {userToDelete && (
+    {userToDelete && (
         <ConfirmDeleteModal
           title="Eliminar usuario"
           message={`¿Seguro que quieres eliminar a "${userToDelete.username}"? Esta acción no se puede deshacer.`}

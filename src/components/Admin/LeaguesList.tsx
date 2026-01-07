@@ -116,7 +116,7 @@ const LeaguesList = () => {
           onConfirm={confirmDelete}
         />
       )}
-    </div>
+  </div>
   );
 };
 
