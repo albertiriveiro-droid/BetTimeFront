@@ -17,9 +17,10 @@ interface TokenPayload {
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
 }
 
-export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
+export const LoginModal = ({ isOpen, onClose,  onSuccess,}: LoginModalProps) => {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,6 +59,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
       login(token, user);
       handleClose();
+      onSuccess?.();
       navigate("/");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
