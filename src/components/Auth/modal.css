@@ -418,3 +418,36 @@
   background-color: rgba(255, 255, 255, 0.08);
   border-color: #888;
 }
+
+.welcome-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.welcome-modal {
+  background: #2101af;
+  color: white;
+  padding: 20px 24px;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 220px;
+}
+.welcome-modal .username{
+font-size: 14px;
+padding-right: 10px;
+margin-bottom: -20px;
+}
+
+.welcome-modal .balance{
+ font-size: 20px; 
+}
+
+.welcome-modal button {
+  margin-top: 12px;
+  width: 100%;
+}

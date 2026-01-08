@@ -8,6 +8,7 @@ import logo from "../../assets/logo.png";
 import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FiLogOut, FiUser } from "react-icons/fi";
+import { UserWelcomeModal } from "../Auth/UserWelcomeModal";
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -15,6 +16,7 @@ const Header = () => {
   const [isRegisterOpen, setRegisterOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [pendingCount, setPendingCount] = useState(0);
+  const [isWelcomeOpen, setWelcomeOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -104,9 +106,19 @@ const Header = () => {
   )}
 </div>
 
-      <LoginModal isOpen={isLoginOpen} onClose={() => setLoginOpen(false)} />
+      <LoginModal
+      isOpen={isLoginOpen}
+      onClose={() => setLoginOpen(false)}
+      onSuccess={() => {
+      setWelcomeOpen(true);
+      }}
+      />
       <RegisterModal isOpen={isRegisterOpen} onClose={() => setRegisterOpen(false)} />
       {user && <ProfileModal isOpen={isProfileOpen} onClose={() => setProfileOpen(false)} />}
+      <UserWelcomeModal
+      isOpen={isWelcomeOpen}
+      onClose={() => setWelcomeOpen(false)}
+      />
     </header>
   );
 };
