@@ -20,7 +20,7 @@ interface LoginModalProps {
   onSuccess?: () => void;
 }
 
-export const LoginModal = ({ isOpen, onClose,  onSuccess,}: LoginModalProps) => {
+export const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,9 +44,21 @@ export const LoginModal = ({ isOpen, onClose,  onSuccess,}: LoginModalProps) => 
 
     try {
       const res = await http.post("/auth/login", { email, password });
-      const token = res.data.token;
 
-      const decoded: TokenPayload = jwtDecode(token);
+      const token = res.data?.token;
+
+      if (!token) {
+        setError(res.data?.message || "Email o contraseña incorrectos");
+        return;
+      }
+
+      let decoded: TokenPayload;
+      try {
+        decoded = jwtDecode<TokenPayload>(token);
+      } catch {
+        setError("Token inválido recibido del servidor");
+        return;
+      }
 
       const user = {
         id: Number(decoded.nameid),
@@ -61,8 +73,10 @@ export const LoginModal = ({ isOpen, onClose,  onSuccess,}: LoginModalProps) => 
       handleClose();
       onSuccess?.();
       navigate("/");
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
+      console.error(err);
       setError(
         err.response?.data?.message ||
         err.response?.data ||
