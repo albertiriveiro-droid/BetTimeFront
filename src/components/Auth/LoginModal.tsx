@@ -44,11 +44,14 @@ export const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
 
     try {
       const res = await http.post("/auth/login", { email, password });
-
       const token = res.data?.token;
 
       if (!token) {
-        setError(res.data?.message || "Email o contraseña incorrectos");
+        const msg =
+          typeof res.data?.message === "string"
+            ? res.data.message
+            : "Email o contraseña incorrectos";
+        setError(msg);
         return;
       }
 
@@ -77,11 +80,15 @@ export const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(err);
-      setError(
-        err.response?.data?.message ||
-        err.response?.data ||
-        "Email o contraseña incorrectos"
-      );
+      let msg = "Email o contraseña incorrectos";
+      if (err.response?.data) {
+        if (typeof err.response.data === "string") {
+          msg = err.response.data;
+        } else if (err.response.data?.message) {
+          msg = err.response.data.message;
+        }
+      }
+      setError(msg);
     }
   };
 

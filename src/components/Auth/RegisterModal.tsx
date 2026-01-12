@@ -42,6 +42,13 @@ export const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
       return;
     }
 
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Email no tiene un formato válido");
+      return;
+    }
+
     setError("");
     setSuccess("");
 
@@ -50,6 +57,11 @@ export const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         "/auth/register",
         { username, email, password } as UserCreateDTO
       );
+
+      if (!res.data?.token || !res.data?.user) {
+        setError("Error inesperado al registrar el usuario");
+        return;
+      }
 
       login(res.data.token, res.data.user);
       setSuccess("¡Cuenta creada correctamente!");
@@ -63,11 +75,16 @@ export const RegisterModal = ({ isOpen, onClose }: RegisterModalProps) => {
         navigate("/");
       }, 1500);
     } catch (err: unknown) {
-      if (axios.isAxiosError(err) && err.response) {
-        setError(err.response.data || "Error al registrar el usuario");
-      } else {
-        setError("Error al registrar el usuario");
+      console.error(err);
+      let msg = "Error al registrar el usuario";
+      if (axios.isAxiosError(err) && err.response?.data) {
+        if (typeof err.response.data === "string") {
+          msg = err.response.data;
+        } else if (err.response.data?.message) {
+          msg = err.response.data.message;
+        }
       }
+      setError(msg);
     }
   };
 
