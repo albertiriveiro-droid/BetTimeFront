@@ -32,7 +32,7 @@ const UsersList = () => {
     <div className="admin-section">
       <h2>Usuarios</h2>
 
-      <table className="admin-matchstats-table">
+      <table className="user-table">
         <thead>
           <tr>
             <th>ID</th>

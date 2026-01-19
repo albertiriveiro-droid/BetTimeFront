@@ -65,3 +65,25 @@
   font-size: 0.9rem;
   margin-top: 4px;
 }
+
+/*Movil*/
+
+@media (max-width: 768px) {
+
+
+.primary-btn {
+  align-self: flex-start;
+  margin-top: 8px;
+  background-color: #1db954;
+  font-size: 15px;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+
+}

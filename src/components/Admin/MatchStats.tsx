@@ -57,7 +57,7 @@ const AdminMatchStats = () => {
       <MatchCreateForm onMatchCreated={loadMatches} />
 
       <h2 className="admin-matchstats-title">Partidos pendientes</h2>
-      <table className="admin-matchstats-table">
+      <table className="match-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -92,7 +92,7 @@ const AdminMatchStats = () => {
       </table>
 
       <h2 className="admin-matchstats-title">Partidos finalizados</h2>
-      <table className="admin-matchstats-table">
+      <table className="match-table">
         <thead>
           <tr>
             <th>ID</th>

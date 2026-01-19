@@ -15,6 +15,148 @@
   padding-left: 10px;
 }
 
+.user-table{
+ width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+ margin-top: 20px;
+  background-color: #ffffff;
+  color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden; 
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.user-table th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+  color: #121212;
+}
+.user-table tbody{
+  background-color: #0F172A;
+}
+
+.leagues-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+ margin-top: 20px;
+  background-color: #ffffff;
+  color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.leagues-table th,
+.leagues-table td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.leagues-table th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+  color: #121212;
+}
+.leagues-table tbody{
+  background-color: #0F172A;
+}
+
+
+.team-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+ margin-top: 20px;
+  background-color: #ffffff;
+  color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.team-table th,
+.team-table td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.team-table th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+  color: #121212;
+}
+.team-table tbody{
+  background-color: #0F172A;
+}
+
+.player-table{
+ width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+ margin-top: 20px;
+  background-color: #ffffff;
+  color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden; 
+}
+
+.player-table th,
+.player-table td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.player-table th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+  color: #121212;
+}
+.player-table tbody{
+  background-color: #0F172A;
+}
+
+.match-table{
+ width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+ margin-top: 20px;
+  background-color: #ffffff;
+  color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden; 
+}
+
+.match-table th,
+.match-table td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.match-table th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+  color: #121212;
+}
+.match-table tbody{
+  background-color: #0F172A;
+}
+
+
 
 
 .admin-table {
@@ -336,3 +478,184 @@
 .admin-btn.danger:hover {
   background: #b91c1c;
 }
+
+@media (max-width: 768px) {
+.admin-page{
+  padding: 10px;
+}
+
+.admin-page h1{
+font-size: 28px;
+}
+
+.admin-section{
+ padding-top: 10px; 
+}
+
+.user-table{
+  display: block;       
+  width: 100%;          
+  overflow-x: auto;      
+  white-space: nowrap;  
+  font-size: 10px;      
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  padding: 4px 6px;      
+  text-align: left;      
+  max-width: 76px;      
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-table th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+  color: #121212;
+}
+.user-table tbody{
+  background-color: #0F172A;
+}
+
+.team-table {
+  display: block;       
+  width: 100%;          
+  overflow-x: auto;      
+  white-space: nowrap;  
+  font-size: 10px;      
+  border-collapse: collapse;
+   background-color: #0F172A;
+}
+
+.team-table th,
+.team-table td {
+  padding: 4px 6px;      
+  text-align: left;      
+  max-width: 120px;      
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.team-table tbody{
+   height: auto;
+}
+
+.player-table {
+  display: block;       
+  width: 100%;          
+  overflow-x: auto;      
+  white-space: nowrap;        
+  border-collapse: collapse;
+   background-color: #0F172A;
+}
+
+.player-table th,
+.player-table td {
+  padding: 4px 6px;      
+  text-align: left;      
+  max-width: 100px;
+  font-size: 12px;        
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.player-table tbody{
+   height: auto;
+}
+
+ .player-table input,
+  .player-table select {
+    font-size: 10px;       
+    padding: 2px 4px;      
+    height: 24px;          
+    width: 100%;           
+    box-sizing: border-box;
+  }
+
+ 
+  .player-table .admin-matchstats-btn {
+    font-size: 10px;       
+    padding: 2px 6px;      
+
+  }
+  .player-table .admin-delete-btn {
+    font-size: 12px;
+    padding: 2px 4px;
+  }
+
+  .match-table {
+  display: block;        
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 10px;       
+  border-collapse: collapse;
+  background-color: #0F172A;
+}
+
+.match-table th,
+.match-table td {
+  padding: 4px 6px;      
+  max-width: 50px;       
+  overflow: hidden;
+  font-size: 10.5px;    
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+
+.match-table .admin-matchstats-btn {
+  font-size: 10px;
+  padding: 2px 6px;
+  margin-right: 4px;
+}
+
+
+  .admin-table,
+  .admin-matchstats-table,
+  .admin-matchstats-stats-table {
+  display: block;
+  width: 100%;             
+  overflow-x: auto;
+  background-color: #0F172A; 
+  
+  }
+
+ 
+  .admin-table th,
+  .admin-table td,
+  .admin-matchstats-table th,
+  .admin-matchstats-table td,
+  .admin-matchstats-stats-table th,
+  .admin-matchstats-stats-table td {
+ max-width: 80px;  
+  padding: 6px 10px; 
+  font-size: 10.50px;  
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  }
+
+ 
+  .admin-table tbody tr,
+  .admin-matchstats-table tbody tr,
+  .admin-matchstats-stats-table tbody tr {
+    height: auto;
+  }
+
+  .admin-matchstats-btn {
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-right: 10px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+
+}
+
