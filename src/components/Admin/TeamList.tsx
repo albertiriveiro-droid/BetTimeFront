@@ -73,7 +73,7 @@ const TeamsList = () => {
     <div className="admin-section">
       <h2>Equipos</h2>
 
-      <table className="admin-table">
+      <table className="team-table">
         <thead>
           <tr>
             <th>ID</th>

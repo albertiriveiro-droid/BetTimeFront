@@ -54,7 +54,7 @@ const LeaguesList = () => {
       <h2>Ligas</h2>
 
     
-      <table className="admin-table">
+      <table className="leagues-table">
         <thead>
           <tr>
             <th>ID</th>

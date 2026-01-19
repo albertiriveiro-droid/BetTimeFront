@@ -134,7 +134,7 @@ const PlayersList = () => {
 
     
       {selectedTeamId && (
-        <table className="admin-table">
+        <table className="player-table">
           <thead>
             <tr>
               <th>ID</th>
